@@ -1,5 +1,0 @@
-Embark on a mesmerizing mobile app development journey with React Native and Expo's
-managed workflow. Unleash your passion and expertise as you showcase limitless possibilities
-to the interviewer. Dive into a symphony of innovation, crafting seamless user experiences,
-captivating animations, and optimized performance. This repository is an invitation to unleash your
-creativity and build something extraordinary.
