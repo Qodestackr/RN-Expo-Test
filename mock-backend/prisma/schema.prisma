@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserType {
+  CUSTOMER
+  HOTEL_MANAGER
+  EMPLOYEE
+}
+
+enum SubscriptionType {
+  FREE
+  BASIC
+  PREMIUM
+}
+
+model User {
+  id           Int            @id @default(autoincrement())
+  username     String
+  email        String         @unique
+  password     String
+  userType     UserType
+  hotel        Hotel?         @relation(fields: [hotelId], references: [id])
+  hotelId      Int?
+  subscription Subscription[]
+}
+
+model Hotel {
+  id      Int       @id @default(autoincrement())
+  name    String
+  address String
+  // Add more fields as per the requirements
+  users   User[]
+  POSData POSData[]
+}
+
+model Subscription {
+  id        Int              @id @default(autoincrement())
+  user      User             @relation(fields: [userId], references: [id])
+  userId    Int
+  type      SubscriptionType
+  startDate DateTime
+  endDate   DateTime
+  // Add more fields related to subscriptions
+}
+
+model POSData {
+  id      Int   @id @default(autoincrement())
+  hotel   Hotel @relation(fields: [hotelId], references: [id])
+  hotelId Int
+  data    Json // Assuming we will get some JSON data from POS services
+}
